@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <ul>
+            <li>
+                {{ object.username }}
+            </li>
+            <li>
+                {{ object.email }}
+            </li>
+            <li>
+                <img src="{{ object.avatar }}" alt=""/>
+            </li>
+        </ul>
+      </div>
+{% endblock content %}
