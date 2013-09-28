@@ -28,5 +28,7 @@ Icon
 !.git*
 *~
 
-### Project files ###
+### Project ignore ###
 kantasker/settings/local.py
+venv
+staticfiles
