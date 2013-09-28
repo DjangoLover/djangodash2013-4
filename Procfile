@@ -1,0 +1,1 @@
+web: gunicorn kantasker.wsgi_heroku

@@ -1,25 +1,31 @@
 # Django settings for kantasker project.
 
+import os
+from django.core.exceptions import ImproperlyConfigured
+
+def get_env_variable(variable_name):
+    """ Get environment variable or raise an exception. """
+    try:
+        return os.environ[variable_name]
+    except KeyError:
+        error_msg = "Set the {0} environment variable".format(variable_name)
+        raise ImproperlyConfigured(error_msg)
+
+
+from os.path import join, abspath, dirname
+here = lambda *x: join(abspath(dirname(__file__)), *x)
+PROJECT_ROOT = here("..", "..")
+root = lambda *x: join(abspath(PROJECT_ROOT), *x)
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Yaroslav Shukharev', 'krkmetal@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
-    }
-}
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -82,9 +88,6 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'mdhb&t^8@_$m-zx09=*$2^)lajod!a1k3=$9-bf0l3u0)yey+f'
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -120,10 +123,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admin',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
