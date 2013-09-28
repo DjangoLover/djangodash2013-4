@@ -16,10 +16,18 @@ DATABASES = {
     }
 }
 
+PASSWORD_HASHERS = (
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+        'django.contrib.auth.hashers.SHA1PasswordHasher',
+    )
+
 TEST_APPS = (
     'django_nose',
 )
 
-INSTALLED_APPS = TEST_APPS + INSTALLED_APPS
+INSTALLED_APPS += TEST_APPS
+
+SOUTH_TESTS_MIGRATE = False
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
