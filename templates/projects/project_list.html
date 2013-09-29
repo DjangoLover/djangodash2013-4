@@ -4,6 +4,9 @@
       <!-- Jumbotron -->
       <div class="jumbotron">
         <ul>
+            <li>
+                <a href="{% url 'project_create' %}" class="btn btn-default">Create a new project</a>
+            </li>
            {% for project in project_list %}
                <li>
                    <a href="{% url 'project_detail' project.slug %}">{{ project.title }}</a>

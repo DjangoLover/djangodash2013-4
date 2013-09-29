@@ -20,4 +20,10 @@ class Project(models.Model):
         self.slug = uuslug(self.title, instance=self, start_no=2)
         super(Project, self).save(*args, **kwargs)
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('project_detail', (), {
+            'slug': self.slug
+        })
+
 

@@ -13,3 +13,4 @@ class ProjectCreateForm(forms.ModelForm):
 
     class Meta:
         model = Project
+        exclude = ('slug', 'owner', 'deleted')
