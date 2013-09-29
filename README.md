@@ -1,4 +1,7 @@
 djangodash2013
 ==============
 
-Django Dash 2013 project
+Kantasker - Kanaban-inspired task management web application
+Made for Django Dash 2013
+
+http://nameless-bayou-2862.herokuapp.com/
