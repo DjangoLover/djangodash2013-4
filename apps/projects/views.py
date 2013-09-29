@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView, CreateView
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, SelectRelatedMixin, PrefetchRelatedMixin
 from .forms import ProjectCreateForm
 from .models import Project
 
@@ -8,8 +8,9 @@ class ProjectListView(ListView):
     model = Project
 
 
-class ProjectDetailView(DetailView):
+class ProjectDetailView(SelectRelatedMixin, DetailView):
     model = Project
+    select_related = ["board"]
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):

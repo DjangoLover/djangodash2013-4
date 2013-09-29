@@ -29,7 +29,7 @@ class Project(models.Model):
 
 class Board(models.Model):
     title = models.CharField(max_length=50)
-    project = models.ForeignKey(Project)
+    project = models.ForeignKey(Project, related_name='board')
     position = models.IntegerField(blank=True, null=True, default=None)
 
     def __unicode__(self):

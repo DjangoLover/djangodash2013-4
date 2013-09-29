@@ -9,5 +9,26 @@
             <li>{{ project.slug }}</li>
             <li>{{ project.owner.username }}</li>
         </ul>
+      <div class="well row">
+      {% for board in project.board.all %}
+         <div class="col-lg-3">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h3 class="panel-title">{{ board.title }}</h3>
+              </div>
+              <div class="panel-body">
+                  <ul class="list-group">
+                      <li class="list-group-item">Sample Card 1</li>
+                      <li class="list-group-item">Sample Card 2</li>
+                      <li class="list-group-item">Sample Card 3</li>
+                      <li class="list-group-item">Sample Card 4</li>
+                      <li class="list-group-item">Sample Card 5</li>
+                  </ul>
+              </div>
+              <div class="panel-footer">Board info: {{ board.position }}</div>
+          </div>
+          </div>
+      {% endfor %}
+      </div>
       </div>
 {% endblock content %}
