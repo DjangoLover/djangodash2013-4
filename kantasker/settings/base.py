@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'apps.profiles',
     'apps.utils',
     'apps.dashboard',
+    'apps.projects'
 )
 
 AUTH_USER_MODEL = 'profiles.KantaskerUser'

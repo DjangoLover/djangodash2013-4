@@ -6,7 +6,8 @@ django-braces==1.2.2
 django-crispy-forms==1.4.0
 django-extensions==1.2.2
 django-model-utils==1.5.0
-django-registration==1.0
+django-uuslug==1.0.0
+python-slugify==0.0.6
 gunicorn==0.14.6
 psycopg2==2.4.5
 static==0.4
