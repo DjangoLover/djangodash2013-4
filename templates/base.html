@@ -29,7 +29,7 @@
           {% if user.is_authenticated %}
               <li><img src="{{ user.avatar }}" alt="avatar"/></li>
              <li><p>Welcome, {{ user.username }}</p></li>
-            <li><a href="#">Dashboard</a></li>
+            <li><a href="{% url 'dashboard_home' %}">Dashboard</a></li>
             <li><a href="{% url 'profile_detail' user.username %}">My Profile</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
           {% else %}

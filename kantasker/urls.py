@@ -2,9 +2,11 @@ from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
 from django.core.urlresolvers import reverse
+import apps
 from apps.profiles.views import ProfileDetailView
 from kantasker.views import HomePageView, SignUpView
 from kantasker.forms import CrispyAuthenticationForm
+from apps.dashboard import urls as dashboard_urls
 
 admin.autodiscover()
 
@@ -43,5 +45,7 @@ urlpatterns = patterns('',
         regex=r'^profiles/(?P<slug>\w+)/$',
         view=ProfileDetailView.as_view(),
         name="profile_detail"
-    )
+    ),
+    url(regex=r'^dashboard/',
+        view=include(dashboard_urls))
 )
