@@ -8,6 +8,7 @@
             <li>{{ project.description }}</li>
             <li>{{ project.slug }}</li>
             <li>{{ project.owner.username }}</li>
+            <li><a href="{% url 'card_create' project.slug %}">Add a new card</a></li>
         </ul>
       <div class="well row">
       {% for board in project.board.all %}
@@ -17,13 +18,21 @@
                   <h3 class="panel-title">{{ board.title }}</h3>
               </div>
               <div class="panel-body">
-                  <ul class="list-group">
-                      <li class="list-group-item">Sample Card 1</li>
-                      <li class="list-group-item">Sample Card 2</li>
-                      <li class="list-group-item">Sample Card 3</li>
-                      <li class="list-group-item">Sample Card 4</li>
-                      <li class="list-group-item">Sample Card 5</li>
-                  </ul>
+                  <div class="list-group">
+                  {% for card in project.card.all %}
+                      {% if card.board.id == board.pk %}
+                        <div class="list-group-item well">
+                            <div class="list-group-item-heading">{{ card.title }}</div>
+                            <hr/>
+                            <div class="list-group-item-text">
+                                <button class="btn btn-sm btn-primary">Done</button>
+                                <button class="btn btn-sm btn-warning">Del</button>
+                                <a href="{% url 'card_detail' card.slug %}" class="btn btn-sm btn-success">Open</a>
+                            </div>
+                        </div>
+                      {% endif %}
+                  {% endfor %}
+                  </div>
               </div>
               <div class="panel-footer">Board info: {{ board.position }}</div>
           </div>

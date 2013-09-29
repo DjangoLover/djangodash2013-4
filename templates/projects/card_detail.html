@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <ul>
+            <li>{{ card.title }}</li>
+            <li>{{ card.content|safe }}</li>
+            <li>{{ card.slug }}</li>
+            <li>{{ card.project.title }}</li>
+            <li>{{ card.board.title }}</li>
+        </ul>
+      </div>
+{% endblock content %}

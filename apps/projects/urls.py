@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from .views import ProjectListView, ProjectDetailView, ProjectCreateView
+from .views import ProjectListView, ProjectDetailView, ProjectCreateView, CardDetailView, CardCreateView
 
 urlpatterns = patterns('',
     url(
@@ -8,7 +8,7 @@ urlpatterns = patterns('',
         name='project_list'
     ),
     url(
-        regex=r'^detail/(?P<slug>[-\w]+)/$',
+        regex=r'^view/(?P<slug>[-\w]+)/$',
         view=ProjectDetailView.as_view(),
         name='project_detail'
     ),
@@ -16,5 +16,15 @@ urlpatterns = patterns('',
         regex=r'^new/$',
         view=ProjectCreateView.as_view(),
         name='project_create'
+    ),
+    url(
+        regex=r'^card/(?P<slug>[-\w]+)/$',
+        view=CardDetailView.as_view(),
+        name='card_detail'
+    ),
+    url(
+        regex=r'^view/(?P<slug>[-\w]+)/new_card/$',
+        view=CardCreateView.as_view(),
+        name='card_create'
     )
 )
