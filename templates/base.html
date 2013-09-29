@@ -1,4 +1,5 @@
-{% load staticfiles i18n %}<!DOCTYPE html>
+{% load staticfiles i18n %}
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -13,21 +14,22 @@
     <![endif]-->
 
     {% block css %}
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css"> -->
+    <link rel="stylesheet" href="{% static "css/bootstrap_flat.min.css" %}">
 
     {% endblock %}
 
   </head>
 
   <body>
-
-    <div class="header navbar">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">Kantasker</a>
-        <ul class="nav navbar-nav">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+       <a class="navbar-brand" href="{% url 'home' %}">Kantasker</a>
+        <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
-              <li><img src="{{ user.avatar }}" alt="avatar"/></li>
+              <li><div class="media">
+                   <img class="media-object" src="{{ user.avatar }}" alt="avatar"/>
+              </div></li>
              <li><p>Welcome, {{ user.username }}</p></li>
             <li><a href="{% url 'dashboard_home' %}">Dashboard</a></li>
             <li><a href="{% url 'profile_detail' user.username %}">My Profile</a></li>
@@ -37,8 +39,7 @@
             <li><a href="{% url 'login' %}">Log In</a></li>
           {% endif %}
         </ul>
-      </div>
-    </div>
+    </nav>
 
     <div class="container">
       {% block content %}
