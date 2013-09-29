@@ -1,1 +1,4 @@
 -r base.txt # includes the base.txt requirements file
+
+dj-database-url==0.2.2
+django-model-utils==1.5.0
