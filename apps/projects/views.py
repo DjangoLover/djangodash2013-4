@@ -1,7 +1,7 @@
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from braces.views import LoginRequiredMixin, SelectRelatedMixin, PrefetchRelatedMixin
 from related.views import CreateWithRelatedMixin
-from .forms import ProjectCreateForm, CardCreateForm
+from .forms import ProjectCreateForm, CardCreateForm, ProjectUpdateForm, BoardCreateForm
 from .models import Project, Card, Board
 
 
@@ -27,19 +27,32 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
         return super(ProjectCreateView, self).form_valid(form)
 
 
+class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+    model = Project
+    form_class = ProjectUpdateForm
+    template_name_suffix = '_edit'
+
+
+class BoardCreateView(LoginRequiredMixin, CreateWithRelatedMixin, CreateView):
+    model = Board
+    login_url = "/login/"
+    template_name_suffix = '_create'
+    related_model = Project
+    form_class = BoardCreateForm
+
+
 class CardDetailView(DetailView):
     model = Card
 
 
-class CardCreateView(LoginRequiredMixin, SelectRelatedMixin, CreateWithRelatedMixin, CreateView):
+class CardCreateView(LoginRequiredMixin, CreateWithRelatedMixin, CreateView):
     model = Card
     login_url = "/login/"
     template_name_suffix = '_create'
-    select_related = ['board']
     related_model = Project
     form_class = CardCreateForm
 
     def get_form(self, form_class):
-        form = super(CardCreateView,self).get_form(form_class) #instantiate using parent
+        form = super(CardCreateView,self).get_form(form_class)
         form.fields['board'].queryset = Board.objects.filter(project=self.related_object)
         return form

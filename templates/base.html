@@ -30,9 +30,9 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
-              <li><div class="media">
-                   <img class="media-object" src="{{ user.avatar }}" alt="avatar"/>
-              </div></li>
+              <li>
+                  <img class="img-responsive" src="{{ user.avatar }}" alt="avatar"/>
+              </li>
              <li><p>Welcome, {{ user.username }}</p></li>
             <li><a href="{% url 'dashboard_home' %}">Dashboard</a></li>
             <li><a href="{% url 'profile_detail' user.username %}">My Profile</a></li>

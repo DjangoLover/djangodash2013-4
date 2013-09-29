@@ -1,12 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Projects</li>
+    </ol>
+    <div class="page-header">
+        <h1>Projects</h1>
+    </div>
+
       <!-- Jumbotron -->
       <div class="jumbotron">
+          <div class="btn-group btn-group-justified">
+          <a class="btn btn-default" href="{% url 'project_create' %}">Create a new project</a>
+          <a class="btn btn-default" href="#">Activity</a>
+      </div>
         <ul>
-            <li>
-                <a href="{% url 'project_create' %}" class="btn btn-default">Create a new project</a>
-            </li>
            {% for project in project_list %}
                <li>
                    <a href="{% url 'project_detail' project.slug %}">{{ project.title }}</a>

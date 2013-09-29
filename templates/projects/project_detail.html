@@ -1,15 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Library</a></li>
+        <li class="active">Data</li>
+    </ol>
+    <div class="page-header">
+        <h1>{{ project.title }}<small> by {{ project.owner.username }}</small></h1>
+    </div>
       <!-- Jumbotron -->
       <div class="jumbotron">
-        <ul>
-            <li>{{ project.title }}</li>
-            <li>{{ project.description }}</li>
-            <li>{{ project.slug }}</li>
-            <li>{{ project.owner.username }}</li>
-            <li><a href="{% url 'card_create' project.slug %}">Add a new card</a></li>
-        </ul>
+      <div class="btn-group btn-group-justified">
+          <a class="btn btn-default" href="{% url 'card_create' project.slug %}">Add a new card</a>
+          <a class="btn btn-default" href="{% url 'board_create' project.slug %}">Add a new board</a>
+          <a class="btn btn-default" href="{% url 'project_update' project.slug %}">Edit project</a>
+          <a class="btn btn-default" href="#">Comments</a>
+          <a class="btn btn-default" href="#">Activity</a>
+      </div>
+        <div class="well">
+            {{ project.description }}
+        </div>
+
       <div class="well row">
       {% for board in project.board.all %}
          <div class="col-lg-3">
@@ -27,7 +39,7 @@
                             <div class="list-group-item-text">
                                 <button class="btn btn-sm btn-primary">Done</button>
                                 <button class="btn btn-sm btn-warning">Del</button>
-                                <a href="{% url 'card_detail' card.slug %}" class="btn btn-sm btn-success">Open</a>
+                                <a href="{% url 'card_detail' project.slug card.slug %}" class="btn btn-sm btn-success">Open</a>
                             </div>
                         </div>
                       {% endif %}

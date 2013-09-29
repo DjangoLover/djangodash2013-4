@@ -105,6 +105,7 @@ class Card(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('card_detail', (), {
+            'project_slug':self.project.slug,
             'slug': self.slug
         })
 
