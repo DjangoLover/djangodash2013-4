@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'crispy_forms',
+    'braces',
     'apps.profiles',
     'apps.utils',
     'apps.dashboard',
