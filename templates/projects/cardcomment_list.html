@@ -1,0 +1,29 @@
+{% extends 'projects/card_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block project_content %}
+        <div class="well">
+            {% for comment in comments %}
+            <div class="row">
+                <div class="panel col-lg-2">
+                       <img src="{{ comment.author.avatar }}" alt="...">
+                    <p>{{ comment.author.username }}</p>
+                    <p></p>
+                </div>
+                <div class="col-lg-10">
+                    <div class="panel panel-success">
+                        <div class="panel-heading"> {{ comment.created }}</div>
+                        <div class="panel-body">
+                           {{ comment.content|safe }}
+                        </div>
+                    </div>
+                </div>
+             </div>
+            {% endfor %}
+        </div>
+    {% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% crispy form %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Projects</a></li>
+        <li class="active">Data</li>
+    </ol>
+    <div class="page-header">
+        <h1><a href="{% url 'card_detail' card.project.slug card.slug %}">{{ card.title }}</a><small> by {{ card.author }}</small></h1>
+    </div>
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+      <div class="btn-group btn-group-justified">
+          <a class="btn btn-default" href="{% url 'project_detail' card.project.slug %}">Back to project</a>
+          <a class="btn btn-default" href="{% url 'project_update' card.project.slug %}">Edit card</a>
+          <a class="btn btn-default" href="{% url 'card_comment_list'  card.project.slug card.slug %}">Comments</a>
+      </div>
+      {% block project_content %}
+        <div class="well">
+            {% for comment in projectcomment_list %}
+                <p>
+                    {{ comment.content|safe }}
+                </p>
+            {% endfor %}
+        </div>
+       {% endblock %}
+      </div>
+{% endblock content %}

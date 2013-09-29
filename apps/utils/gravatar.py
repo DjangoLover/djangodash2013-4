@@ -3,7 +3,7 @@ import urllib, hashlib
 GRAVATAR_HTTP_URL = 'http://www.gravatar.com/avatar/'
 GRAVATAR_HTTPS_URL = 'https://secure.gravatar.com/avatar/'
 
-DEFAULT_SIZE = 40
+DEFAULT_SIZE = 60
 DEFAULT_IMAGES = ['mm', 'identicon', 'monsterid', 'wavatar', 'retro']
 
 def get_gravatar_link(email, size=DEFAULT_SIZE, default_image_index=0, is_https=False):

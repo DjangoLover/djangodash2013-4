@@ -1,16 +1,15 @@
 from django.conf import settings
 from django.db import models
 from uuslug import uuslug
+from apps.utils.models import TimedAbstractModel
 
 
-class Project(models.Model):
+class Project(TimedAbstractModel):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=200, blank=True)
     description = models.TextField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     is_public = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
@@ -74,15 +73,13 @@ class Board(models.Model):
         self.save()
 
 
-class Card(models.Model):
+class Card(TimedAbstractModel):
     title = models.CharField(max_length=50)
     slug = models.SlugField()
     content = models.TextField(blank=True, null=True)
     content_markdown = models.TextField()
     project = models.ForeignKey(Project, related_name='card')
     board = models.ForeignKey(Board)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
     due_date = models.DateTimeField(null=True, blank=True)
     deleted = models.BooleanField(default=False)
     done = models.BooleanField(default=False)
@@ -109,3 +106,46 @@ class Card(models.Model):
             'slug': self.slug
         })
 
+
+class ProjectComment(TimedAbstractModel):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='projectcomment_author')
+    project = models.ForeignKey(Project, related_name='projectcomment_project')
+    content = models.TextField(blank=True, null=True)
+    content_markdown = models.TextField()
+
+    def __unicode__(self):
+        return self.content
+
+    def save(self, *args, **kwargs):
+        import markdown
+        self.content = markdown.markdown(self.content_markdown)
+        super(ProjectComment, self).save(*args, **kwargs)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('project_comment_list', (), {
+            'slug':self.project.slug
+        })
+
+
+class CardComment(TimedAbstractModel):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='cardcomment_author')
+    project = models.ForeignKey(Project, related_name='cardcomment_project')
+    card = models.ForeignKey(Card, related_name='cardcomment_card')
+    content = models.TextField(blank=True, null=True)
+    content_markdown = models.TextField()
+
+    def __unicode__(self):
+        return self.content
+
+    def save(self, *args, **kwargs):
+        import markdown
+        self.content = markdown.markdown(self.content_markdown)
+        super(CardComment, self).save(*args, **kwargs)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('card_comment_list', (), {
+            'project_slug': self.project.slug,
+            'slug': self.card.slug
+        })

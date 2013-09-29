@@ -1,23 +1,6 @@
-{% extends "base.html" %}
+{% extends "projects/project_base.html" %}
 
-{% block content %}
-    <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Library</a></li>
-        <li class="active">Data</li>
-    </ol>
-    <div class="page-header">
-        <h1>{{ project.title }}<small> by {{ project.owner.username }}</small></h1>
-    </div>
-      <!-- Jumbotron -->
-      <div class="jumbotron">
-      <div class="btn-group btn-group-justified">
-          <a class="btn btn-default" href="{% url 'card_create' project.slug %}">Add a new card</a>
-          <a class="btn btn-default" href="{% url 'board_create' project.slug %}">Add a new board</a>
-          <a class="btn btn-default" href="{% url 'project_update' project.slug %}">Edit project</a>
-          <a class="btn btn-default" href="#">Comments</a>
-          <a class="btn btn-default" href="#">Activity</a>
-      </div>
+{% block project_content %}
         <div class="well">
             {{ project.description }}
         </div>
@@ -27,7 +10,7 @@
          <div class="col-lg-3">
           <div class="panel panel-default">
               <div class="panel-heading">
-                  <h3 class="panel-title">{{ board.title }}</h3>
+                  <h3 class="panel-title">{{ board.title }} <a class="btn btn-sm btn-warning" href="{% url 'board_delete' project.slug board.pk %}">Del</a></h3>
               </div>
               <div class="panel-body">
                   <div class="list-group">
@@ -38,7 +21,7 @@
                             <hr/>
                             <div class="list-group-item-text">
                                 <button class="btn btn-sm btn-primary">Done</button>
-                                <button class="btn btn-sm btn-warning">Del</button>
+                                <a class="btn btn-sm btn-warning" href="{% url 'card_delete' project.slug card.slug %}">Del</a>
                                 <a href="{% url 'card_detail' project.slug card.slug %}" class="btn btn-sm btn-success">Open</a>
                             </div>
                         </div>
@@ -50,6 +33,5 @@
           </div>
           </div>
       {% endfor %}
-      </div>
-      </div>
-{% endblock content %}
+    </div>
+{% endblock %}

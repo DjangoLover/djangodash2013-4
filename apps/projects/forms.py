@@ -1,7 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django import forms
-from .models import Project, Card, Board
+from .models import Project, Card, Board, ProjectComment, CardComment
 
 
 class ProjectCreateForm(forms.ModelForm):
@@ -51,3 +51,27 @@ class CardCreateForm(forms.ModelForm):
     class Meta:
         model = Card
         exclude = ('slug', 'content', 'project', 'deleted', 'done')
+
+
+class ProjectCommentCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ProjectCommentCreateForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+
+        self.helper.layout.append(Submit('save', 'save'))
+
+    class Meta:
+        model = ProjectComment
+        exclude = ('author', 'project', 'content')
+
+
+class CardCommentCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CardCommentCreateForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+
+        self.helper.layout.append(Submit('save', 'save'))
+
+    class Meta:
+        model = CardComment
+        exclude = ('author', 'project', 'card', 'content')
