@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <ul>
+            <li>{{ project.title }}</li>
+            <li>{{ project.description }}</li>
+            <li>{{ project.slug }}</li>
+            <li>{{ project.owner.username }}</li>
+        </ul>
+      </div>
+{% endblock content %}

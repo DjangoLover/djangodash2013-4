@@ -45,6 +45,6 @@ urlpatterns = patterns('',
     ),
     url(regex=r'^dashboard/',
         view=include('apps.dashboard.urls')),
-    url(regex=r'^project/',
+    url(regex=r'^projects/',
         view=include('apps.projects.urls'))
 )

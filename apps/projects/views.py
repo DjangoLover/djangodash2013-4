@@ -5,3 +5,6 @@ from .models import Project
 class ProjectListView(ListView):
     model = Project
 
+
+class ProjectDetailView(DetailView):
+    model = Project
