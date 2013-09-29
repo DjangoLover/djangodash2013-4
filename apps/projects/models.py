@@ -27,3 +27,51 @@ class Project(models.Model):
         })
 
 
+class Board(models.Model):
+    title = models.CharField(max_length=50)
+    project = models.ForeignKey(Project)
+    position = models.IntegerField(blank=True, null=True, default=None)
+
+    def __unicode__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if self.position is None:
+            self.position = self.count_project_boards()
+        super(Board, self).save(*args, **kwargs)
+
+    def count_project_boards(self):
+        return Board.objects.filter(project=self.project.id).count()
+
+    def increase_position(self):
+        highest_position = self.count_project_boards() - 1
+        if self.position < highest_position:
+            new_position = self.position + 1
+            old_position = self.position
+            old_board = Board.objects.get(
+                project=self.project,
+                position=new_position
+            )
+            old_board._change_position(old_position)
+            self.position = new_position
+            self.save()
+
+
+    def decrease_position(self):
+        if self.position > 0:
+            new_position = self.position - 1
+            old_position = self.position
+            old_board = Board.objects.get(
+                project=self.project,
+                position=self.position
+            )
+            old_board._change_position(old_position)
+            self.position = new_position
+            self.save()
+
+    def _change_position(self, position):
+        self.position = position
+        self.save()
+
+
+

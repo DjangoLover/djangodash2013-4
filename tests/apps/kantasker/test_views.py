@@ -1,9 +1,8 @@
 from django.test import TestCase, RequestFactory
 from hamcrest import *
 from django.core.urlresolvers import resolve, reverse
-from django.http import HttpRequest
 from kantasker.views import HomePageView
-from mock import *
+
 
 class TestKantaskerHomePage(TestCase):
 
@@ -12,7 +11,7 @@ class TestKantaskerHomePage(TestCase):
 
     def test_root_url_resolves_to_home_page(self):
         result = resolve('/')
-        assert_that(result.func, same_instance(HomePageView))
+        assert_that(result.view_name, is_('home'))
 
     def test_homepage_return_correct_html(self):
         expected_title = b'<title>Kantasker - Welcome</title>'
