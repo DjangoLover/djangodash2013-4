@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <ul>
+           {% for project in project_list %}
+               <li>
+                   <a href="#">{{ project.title }}</a>
+               </li>
+            {% endfor %}
+        </ul>
+      </div>
+{% endblock content %}
